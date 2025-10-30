@@ -1,0 +1,6 @@
+C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\bin\Debug\ArrayPG.dll
+C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\bin\Debug\ArrayPG.pdb
+C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\obj\Debug\ArrayPG.csproj.AssemblyReference.cache
+C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\obj\Debug\ArrayPG.csproj.CoreCompileInputs.cache
+C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\obj\Debug\ArrayPG.dll
+C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\obj\Debug\ArrayPG.pdb
