@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DivaPGE;
 
 namespace ProcedureMapGenerator
 {
@@ -526,6 +527,14 @@ namespace ProcedureMapGenerator
             }
             return this;
         }
+    }
+    public DivaPGE.Chunk ConvertToUnityObj(Chunk chunk)
+    {
+
+    }
+    private DivaPGE.AttachPoint[] CreateAttachPoints(Chunk chunk)
+    {
+
     }
     public enum ConnectionType
     {
