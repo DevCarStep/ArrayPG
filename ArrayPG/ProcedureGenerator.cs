@@ -118,7 +118,7 @@ namespace ProcedureMapGenerator
                     if (Map[x, y] != null)
                     {
                         //Добавляем чанк
-                        
+
                         chunkLine += "#";
 
                         //Проверяем восточное соединение
@@ -527,22 +527,54 @@ namespace ProcedureMapGenerator
             }
             return this;
         }
-    }
-    public DivaPGE.Chunk ConvertToUnityObj(Chunk chunk)
-    {
+        //Конвертация в чанк юнити
+        public DivaPGE.Chunk ConvertToUnityObj(Chunk chunk)
+        {
+            DivaPGE.Chunk convertatedChunk = new DivaPGE.Chunk();
 
-    }
-    private DivaPGE.AttachPoint[] CreateAttachPoints(Chunk chunk)
-    {
+            convertatedChunk.Points = chunk.CreateAttachPoints();
 
+            return convertatedChunk;
+        }
+        //Превращение направлений в точки соединения
+        private AttachPoint[] CreateAttachPoints()
+        {
+            AttachPoint[] attachPoints = new AttachPoint[DirectionsCount()];
+
+            for (int i = 0; i < attachPoints.Length; i++)
+            {
+                foreach (var key in directions.Keys)
+                {
+                    if (directions[key].Item1)
+                    {
+                        attachPoints[i] = new AttachPoint();
+                    }
+                }
+            }
+
+            return attachPoints;
+        }
+        public int DirectionsCount()
+        {
+            var current_directions = new List<Tuple<ConnectionType, bool, bool>>();
+            int count = 0;
+
+            foreach (var key in directions.Keys)
+            {
+                if (directions[key].Item1)
+                    count++;
+            }
+
+            return count;
+        }
     }
-    public enum ConnectionType
-    {
-        North, //Север
-        South, //Юг
-        West, //Запад
-        East,  //Восток
-        Up, //Верх
-        Down //Низ
-    }
+}
+public enum ConnectionType
+{
+    North, //Север
+    South, //Юг
+    West, //Запад
+    East,  //Восток
+    Up, //Верх
+    Down //Низ
 }
