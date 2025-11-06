@@ -547,7 +547,7 @@ namespace ProcedureMapGenerator
                 {
                     if (directions[key].Item1)
                     {
-                        attachPoints[i] = new AttachPoint();
+                        attachPoints[i] = new AttachPoint(key);
                     }
                 }
             }
@@ -556,14 +556,13 @@ namespace ProcedureMapGenerator
         }
         public int DirectionsCount()
         {
-            var current_directions = new List<Tuple<ConnectionType, bool, bool>>();
-            int count = 0;
+            int count = directions.Count(x => x.Value.Item1 == true);
 
-            foreach (var key in directions.Keys)
-            {
-                if (directions[key].Item1)
-                    count++;
-            }
+            //foreach (var key in directions.Keys)
+            //{
+            //    if (directions[key].Item1)
+            //        count++;
+            //}
 
             return count;
         }
