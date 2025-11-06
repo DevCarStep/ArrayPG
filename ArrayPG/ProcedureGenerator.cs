@@ -12,7 +12,7 @@ namespace ProcedureMapGenerator
         Chunk[,] Map;
         private Random random;
 
-        public ProcedureGenerator(Chunk[,] Map)
+        public ProcedureGenerator(ProcedureMapGenerator.Chunk[,] Map)
         {
             this.Map = Map;
             this.random = new Random();
@@ -20,7 +20,7 @@ namespace ProcedureMapGenerator
 
         public ProcedureGenerator(int xLimit, int yLimit)
         {
-            Map = new Chunk[xLimit, yLimit];
+            Map = new ProcedureMapGenerator.Chunk[xLimit, yLimit];
             this.random = new Random();
         }
 
@@ -204,7 +204,7 @@ namespace ProcedureMapGenerator
                 var current = queue.Dequeue();
                 int x = current.Item1;
                 int y = current.Item2;
-                Chunk currentChunk = Map[x, y];
+                ProcedureMapGenerator.Chunk currentChunk = Map[x, y];
 
                 var allDirections = GetPossibleDirections(x, y);
                 ShuffleDirections(allDirections);
@@ -246,7 +246,7 @@ namespace ProcedureMapGenerator
                         continue;
 
                     //Создаем новый чанк с контролируемым количеством выходов
-                    Chunk newChunk = CreateConnectedChunk(currentChunk, direction, minExits, maxExits);
+                    ProcedureMapGenerator.Chunk newChunk = CreateConnectedChunk(currentChunk, direction, minExits, maxExits);
                     Map[newX, newY] = newChunk;
                     generatedChunks++;
 
@@ -271,21 +271,21 @@ namespace ProcedureMapGenerator
         }
 
         //Создание начального чанка (можно опустить метод, вынес для наглядности параметров)
-        private Chunk CreateStartChunk(int minExits, int maxExits)
+        private ProcedureMapGenerator.Chunk CreateStartChunk(int minExits, int maxExits)
         {
-            var directions = Chunk.NullDirections();
-            var chunk = new Chunk(directions);
+            var directions = ProcedureMapGenerator.Chunk.NullDirections();
+            var chunk = new ProcedureMapGenerator.Chunk(directions);
             return chunk.RandomizeDirection(minExits, maxExits);
         }
         //Создание чанка и подключение его
-        private Chunk CreateConnectedChunk(Chunk connectedChunk, ConnectionType connectionDirection, int minExits, int maxExits)
+        private ProcedureMapGenerator.Chunk CreateConnectedChunk(ProcedureMapGenerator.Chunk connectedChunk, ConnectionType connectionDirection, int minExits, int maxExits)
         {
-            var newDirections = Chunk.NullDirections();
+            var newDirections = ProcedureMapGenerator.Chunk.NullDirections();
             var oppositeDirection = GetOppositeDirection(connectionDirection);
 
             newDirections[oppositeDirection] = new Tuple<bool, bool?>(true, true);
 
-            Chunk newChunk = new Chunk(newDirections);
+            ProcedureMapGenerator.Chunk newChunk = new ProcedureMapGenerator.Chunk(newDirections);
             newChunk = newChunk.RandomizeDirection(minExits, maxExits);
 
             connectedChunk.directions[connectionDirection] = new Tuple<bool, bool?>(true, true);
@@ -340,7 +340,7 @@ namespace ProcedureMapGenerator
             Sparse              //Разреженная
         }
         //Гарантирует соединение между двумя чанками
-        private void EnsureConnection(Chunk chunk1, ConnectionType dir1, Chunk chunk2)
+        private void EnsureConnection(ProcedureMapGenerator.Chunk chunk1, ConnectionType dir1, ProcedureMapGenerator.Chunk chunk2)
         {
             ConnectionType dir2 = GetOppositeDirection(dir1);
 
@@ -434,7 +434,7 @@ namespace ProcedureMapGenerator
 
                 int x = current.Item1;
                 int y = current.Item2;
-                Chunk chunk = Map[x, y];
+                ProcedureMapGenerator.Chunk chunk = Map[x, y];
 
                 //Проверяем все направления
                 if (y > 0 && chunk.directions[ConnectionType.North].Item1 &&
@@ -494,7 +494,7 @@ namespace ProcedureMapGenerator
         }
 
         //Метод, случайным образом устанавливающий выходы
-        public Chunk RandomizeDirection(int minPoints = 2, int maxPoints = 4)
+        public ProcedureMapGenerator.Chunk RandomizeDirection(int minPoints = 2, int maxPoints = 4)
         {
             Random rand = new Random();
 
@@ -528,7 +528,7 @@ namespace ProcedureMapGenerator
             return this;
         }
         //Конвертация в чанк юнити
-        public DivaPGE.Chunk ConvertToUnityObj(Chunk chunk)
+        public DivaPGE.Chunk ConvertToUnityObj(ProcedureMapGenerator.Chunk chunk)
         {
             DivaPGE.Chunk convertatedChunk = new DivaPGE.Chunk();
 
@@ -565,6 +565,29 @@ namespace ProcedureMapGenerator
             //}
 
             return count;
+        }
+        //должен вращать чанк (его направления) на 90 градусов указаное количество раз
+        public void RotateChunk(int times = 1)
+        {
+            for (int n = 0; n < times; n++)
+            {
+                var array = directions.Values.ToList().ToArray();
+                var temp = array[0];
+                array[0] = array[1];
+                array[1] = array[2];
+                array[2] = array[3];
+                array[3] = temp;
+
+                Dictionary<ConnectionType, Tuple<bool, bool?>> res = new Dictionary<ConnectionType, Tuple<bool, bool?>>();
+                res.Add(ConnectionType.North, array[0]);
+                res.Add(ConnectionType.South, array[1]);
+                res.Add(ConnectionType.West, array[2]);
+                res.Add(ConnectionType.East, array[3]);
+                res.Add(ConnectionType.Up, directions[ConnectionType.Up]);
+                res.Add(ConnectionType.Down, directions[ConnectionType.Down]);
+
+                directions = res;
+            }
         }
     }
 }
