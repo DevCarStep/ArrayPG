@@ -469,7 +469,7 @@ namespace ProcedureMapGenerator
             return (double)connectedCount / totalChunks * 100;
         }
 
-
+        public Chunk[,] GetMap() { return Map; }
     }
     public class Chunk
     {

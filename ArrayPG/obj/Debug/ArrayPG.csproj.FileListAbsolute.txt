@@ -15,3 +15,7 @@ C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\bin\Debug\UnityEngine.
 C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\bin\Debug\DivaPGE.pdb
 C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\bin\Debug\UnityEngine.xml
 C:\Users\Пользователь\Desktop\ArrayPG\ArrayPG\obj\Debug\ArrayPG.csproj.Up2Date
+C:\Users\324\source\repos\ArrayPG\ArrayPG\bin\Debug\DivaPGE.dll
+C:\Users\324\source\repos\ArrayPG\ArrayPG\bin\Debug\UnityEngine.dll
+C:\Users\324\source\repos\ArrayPG\ArrayPG\bin\Debug\DivaPGE.pdb
+C:\Users\324\source\repos\ArrayPG\ArrayPG\obj\Debug\ArrayPG.csproj.Up2Date
