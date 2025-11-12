@@ -572,10 +572,10 @@ namespace ProcedureMapGenerator
             for (int n = 0; n < times; n++)
             {
                 var array = directions.Values.ToList().ToArray();
-                var temp = array[0];
-                array[0] = array[1];
-                array[1] = array[2];
-                array[2] = array[3];
+                var temp = new Tuple<bool, bool?>(array[0].Item1, array[0].Item2);
+                array[0] = new Tuple<bool, bool?>(array[1].Item1, array[0].Item2);
+                array[1] = new Tuple<bool, bool?>(array[2].Item1, array[0].Item2);
+                array[2] = new Tuple<bool, bool?>(array[3].Item1, array[0].Item2);
                 array[3] = temp;
 
                 Dictionary<ConnectionType, Tuple<bool, bool?>> res = new Dictionary<ConnectionType, Tuple<bool, bool?>>();
