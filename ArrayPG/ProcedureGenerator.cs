@@ -574,17 +574,17 @@ namespace ProcedureMapGenerator
             for (int n = 0; n < times; n++)
             {
                 var array = directions.Values.ToList().ToArray();
-                var temp = new Tuple<bool, bool?>(array[0].Item1, array[0].Item2);
-                array[0] = new Tuple<bool, bool?>(array[1].Item1, array[0].Item2);
-                array[1] = new Tuple<bool, bool?>(array[2].Item1, array[0].Item2);
-                array[2] = new Tuple<bool, bool?>(array[3].Item1, array[0].Item2);
-                array[3] = temp;
+                Tuple<bool, bool?>[] temparray = new Tuple<bool, bool?>[4];
+                temparray[0] = new Tuple<bool, bool?>(array[2].Item1, array[0].Item2);
+                temparray[3] = new Tuple<bool, bool?>(array[0].Item1, array[0].Item2);
+                temparray[1] = new Tuple<bool, bool?>(array[3].Item1, array[0].Item2);
+                temparray[2] = new Tuple<bool, bool?>(array[1].Item1, array[0].Item2);
 
                 Dictionary<ConnectionType, Tuple<bool, bool?>> res = new Dictionary<ConnectionType, Tuple<bool, bool?>>();
-                res.Add(ConnectionType.North, array[0]);
-                res.Add(ConnectionType.South, array[1]);
-                res.Add(ConnectionType.West, array[2]);
-                res.Add(ConnectionType.East, array[3]);
+                res.Add(ConnectionType.North, temparray[0]);
+                res.Add(ConnectionType.South, temparray[1]);
+                res.Add(ConnectionType.West, temparray[2]);
+                res.Add(ConnectionType.East, temparray[3]);
                 res.Add(ConnectionType.Up, directions[ConnectionType.Up]);
                 res.Add(ConnectionType.Down, directions[ConnectionType.Down]);
 
