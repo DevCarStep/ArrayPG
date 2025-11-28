@@ -556,7 +556,6 @@ namespace ProcedureMapGenerator
         }
         public int DirectionsCount()
         {
-            //int count = directions.Count(x => x.Value.Item1 == true);
             int count = 0;
 
             foreach (var key in directions.Keys)
